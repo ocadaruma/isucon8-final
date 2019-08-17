@@ -3,6 +3,7 @@ package model
 import (
 	"database/sql"
 	"time"
+	"log"
 
 	"github.com/go-sql-driver/mysql"
 	"golang.org/x/crypto/bcrypt"
@@ -32,6 +33,7 @@ func UserSignup(tx *sql.Tx, name, bankID, password string) error {
 	}
 	// bankIDの検証
 	if err = bank.Check(bankID, 0); err != nil {
+		log.Printf("[ERROR] BAAAANK USER NOT FOUND: %s, %s", name, bankID)
 		return ErrBankUserNotFound
 	}
 	pass, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
