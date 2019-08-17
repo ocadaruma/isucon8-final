@@ -76,6 +76,7 @@ func (b *Isubank) Check(bankID string, price int64) error {
 	if err := b.request("/check", v, res); err != nil {
 		return fmt.Errorf("check failed. err: %s", err)
 	}
+	log.Printf("[ERROR] ERRRRRR ++++++++++++++++++ err:%s bank_id:%s, price:%d, endpoint:%s, app_id:%s", res.Error, bankID, price, b.endpoint, b.appID)
 	if res.success() {
 		return nil
 	}
