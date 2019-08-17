@@ -6,6 +6,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"log"
 	"net/http"
 	"net/url"
 	"path"
@@ -71,6 +72,7 @@ func (b *Isubank) Check(bankID string, price int64) error {
 		"bank_id": bankID,
 		"price":   price,
 	}
+	log.Printf("[INFO] ++++++++++++++++++ bank_id:%s, price:%d, endpoint:%s, app_id:%s", bankID, price, b.endpoint, b.appID)
 	if err := b.request("/check", v, res); err != nil {
 		return fmt.Errorf("check failed. err: %s", err)
 	}
